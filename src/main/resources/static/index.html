@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<title>Propriedades - Spring Boot</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" type="text/css"	href="webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" />
+	</head>
+	
+	<body>
+		
+		<div class="container">
+			<script src="webjars/jquery/3.1.1/jquery.min.js"></script>
+			<script type="text/javascript"	src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+			<script type="text/javascript">
+
+				$(document).ready(function (){
+					function propertiesService(filter) {
+						$.ajax({
+						type : "GET",
+						url : "/api/find/"+filter,
+						data : '$format=json',
+						dataType : 'json',
+						success : function(data) {
+							var	total=0;
+							$("#properties tbody tr").remove();
+							$.each(data, function(d, results) {
+								
+								$("#properties tbody").append("<tr>"		
+																+	"<td class='text-nowrap'>" + results.categoria + "</td>"
+																+	"<td class='text-nowrap'>" + results.subcategoria + "</td>"
+																+	"<td class='text-nowrap'>" + results.nome + "</td>"
+																+	"<td class='text-nowrap'>" +	results.valor + "</td>"
+																+	"<td class='text-nowrap'>" +	results.descricao + "</td>"	
+																+	"</tr>")
+																total++; 
+								}
+							)
+							$("#results").text(total+"	propriedades encontradas");
+							}
+						});
+					};
+					var minlength = 2;
+					$("#search").keypress(function(e) {
+					    if(e.which == 13) {
+					        value = $(this).val();
+	   	                    propertiesService(value);
+					        return false;
+					    }
+				 	});
+					
+
+				});			
+			</script>
+			
+			
+			<div class="panel panel-default">
+  				<div class="panel-heading">
+  					<div class="panel-title">Spring Boot Properties</div>
+  				</div>
+  				<div class="panel-body">
+					<form>
+						<div class="form-group">
+							<label for="search">Nome da Propriedade</label>
+   							<input type="text" class="form-control" placeholder="propertie.name" id="search">
+  						</div>
+						<span id="results" class="label label-info"></span>
+					</form>
+  				</div>
+			</div>
+			<table id="properties" class="table table-hover">
+				<thead>
+					<tr>
+						<th>Categoria</th>
+						<th>Subcategoria</th>
+						<th>nome</th>
+						<th>descricao</th>
+					</tr>
+				</thead>
+				<tbody></tbody>
+			</table>
+		</div>
+	</body>		
+</html>		

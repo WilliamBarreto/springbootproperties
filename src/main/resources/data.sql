@@ -1,0 +1,3 @@
+insert into propriedade (categoria, subcategoria, nome, valor, descricao) values ('Web properties','Embedded Server Configuration','server.port','8080','Server HTTP port');
+insert into propriedade (categoria, subcategoria, nome, valor, descricao) values ('Web properties','Embedded Server Configuration','spring.h2.console.enabled','true','H2 Database server enabled');
+insert into propriedade (categoria, subcategoria, nome, valor, descricao) values ('Web properties','Embedded Server Configuration','spring.datasource.url','jdbc:h2:mem:meuBancoDeDados','H2 Database configuration');
